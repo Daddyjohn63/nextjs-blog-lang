@@ -11,7 +11,7 @@ interface PostProps {
 
 const PostCard = ({
   post,
-  layout = 'horizontal',
+  layout = 'horizontal', //default value
   reverse = false
 }: PostProps) => {
   return (
