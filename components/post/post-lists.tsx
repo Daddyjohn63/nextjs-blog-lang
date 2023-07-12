@@ -5,6 +5,7 @@ interface PostListProps {
   posts: Post[];
   layout?: 'vertical' | 'horizontal';
 }
+
 //posts comes from app/page.tsx where the post data is fed in via props and recieved here.
 const PostList = ({ posts, layout = 'vertical' }: PostListProps) => {
   return (
