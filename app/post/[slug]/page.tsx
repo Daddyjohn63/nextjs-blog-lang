@@ -105,7 +105,7 @@ const Page = async ({
           <PostBody body={post.body} />
         </div>
         {/* CTA Card */}
-        {/* {@ts-expect-error Async Server Component} */}
+
         <CTACard />
       </div>
     </PaddingContainer>
