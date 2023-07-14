@@ -8,6 +8,7 @@ const nextConfig = {
       },
       {
         hostname: 'directus-production-c48f.up.railway.app',
+        // hostname: 'directus-production-1246.up.railway.app',
         protocol: 'https'
       }
     ]

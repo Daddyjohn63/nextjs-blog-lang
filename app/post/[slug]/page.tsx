@@ -5,13 +5,33 @@ import PostHero from '@/components/post/post-hero';
 import Sociallink from '@/components/elements/social-link';
 import PostBody from '@/components/post/post-body';
 import CTACard from '@/components/elements/cta-card';
+import directus from '@/lib/directus';
 
 export const generateStaticParams = async () => {
-  return DUMMY_POSTS.map(post => {
-    return {
-      slug: post.slug
-    };
-  });
+  // return DUMMY_POSTS.map(post => {
+  //   return {
+  //     slug: post.slug
+  //   };
+  // });
+  try {
+    const posts = await directus.items('post').readByQuery({
+      filter: {
+        status: {
+          _eq: 'published'
+        }
+      },
+      fields: ['slug']
+    });
+
+    const params = posts?.data?.map(post => {
+      return {
+        slug: post.slug as string
+      };
+    });
+    return params || [];
+  } catch (error) {
+    throw new Error('Error fetching posts');
+  }
 };
 
 const Page = ({
