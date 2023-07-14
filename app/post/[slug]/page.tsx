@@ -34,7 +34,7 @@ export const generateStaticParams = async () => {
   }
 };
 
-const Page = ({
+const Page = async ({
   params
 }: {
   params: {
@@ -42,8 +42,32 @@ const Page = ({
   };
 }) => {
   // return <div>{params.slug}</div>;
-  const post = DUMMY_POSTS.find(post => post.slug === params.slug);
+  // const post = DUMMY_POSTS.find(post => post.slug === params.slug);
   // console.log(post);
+
+  const getPostData = async () => {
+    try {
+      const post = await directus.items('post').readByQuery({
+        filter: {
+          slug: {
+            _eq: params.slug
+          }
+        },
+        fields: [
+          '*',
+          'category.id',
+          'category.title',
+          'author.id',
+          'author.first_name',
+          'author.last_name'
+        ]
+      });
+
+      return post?.data?.[0];
+    } catch (error) {}
+  };
+
+  const post = await getPostData();
 
   if (!post) {
     notFound();
@@ -81,6 +105,7 @@ const Page = ({
           <PostBody body={post.body} />
         </div>
         {/* CTA Card */}
+        {/* {@ts-expect-error Async Server Component} */}
         <CTACard />
       </div>
     </PaddingContainer>

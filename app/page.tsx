@@ -32,7 +32,7 @@ export default async function Home() {
 
   const posts = await getAllPosts();
 
- // console.log(posts);
+  // console.log(posts);
 
   if (!posts) {
     notFound();
@@ -45,6 +45,7 @@ export default async function Home() {
         <PostList
           posts={posts.filter((_post, index) => index > 0 && index < 3)}
         />
+        {/* {@ts-expect-error Async Server Component} */}
         <CTACard />
         <PostCard reverse post={posts[3]} />
         <PostList
